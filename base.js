@@ -54,7 +54,8 @@ export default class Base extends Component {
                 }}>
                     <Text>测试样式22222</Text>
                     <Text>测试样式333</Text>
-                    <Image source={pic} style={{width: 110, height: 110}}/>
+                    <Image source={{uri: 'https://www.baidu.com/img/bd_logo1.png'}}
+                           style={{width: 200, height: 200}} />
 
                     <Text style={styles.bigblue}>字体颜色及字体大小</Text>
                     <View style={{width: 50, height: 50, backgroundColor: 'powderblue'}}/>
