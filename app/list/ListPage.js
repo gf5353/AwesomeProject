@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import {Text, StyleSheet, View, FlatList, ActivityIndicator} from 'react-native'
+import {Text, StyleSheet, View, FlatList,Image, ActivityIndicator,TouchableHighlight,ToastAndroid} from 'react-native'
 
 
 export default class ListPage extends Component {
@@ -29,18 +29,20 @@ export default class ListPage extends Component {
                 // let json = responseJson.toJSON();
                 const array =json.result;
                 var arr = [];
-                for (let i = 0, size = array.size; i < size; i++) {
-                    let objArray = array.get('channellist');
-                    for (let j = 0, size = objArray.size; j < size; i++) {
-                        let obj = objArray.get(j);
+                console.log('data size=' + array.length);
+
+                for (let i = 0, size = array.length; i < size; i++) {
+                    let objArray = array[i].channellist;
+                    for (let j = 0, size = objArray.length; j < size; j++) {
+                        let obj = objArray[j];
                         arr.push(obj);
-                        console.log('data=' + obj.toString());
+                        // console.log('data=' + obj.toJSON());
                     }
                 }
 
                 this.setState({
                     isLoading: false,
-                    dataSource: array,
+                    dataSource: arr,
                 }, function () {
 
                 });
@@ -50,6 +52,7 @@ export default class ListPage extends Component {
                 console.error(error);
             });
     }
+
 
     render() {
         if (this.state.isLoading) {
@@ -64,7 +67,22 @@ export default class ListPage extends Component {
                     data={
                         this.state.dataSource
                     }
-                    renderItem={({item}) => <Text style={styles.item}>{item.title}</Text>}
+                    renderItem={({item}) =>
+                        <TouchableHighlight
+                            onPress={() => {
+                                ToastAndroid.show(item.name, ToastAndroid.LONG)
+                            }
+                            }
+                        >
+                            <View>
+                                <Image
+                                    source={{uri: item.thumb}}
+                                    style={{width: 100, height: 100}}
+                                />
+                                <Text style={styles.item}>{item.name}  </Text>
+                            </View>
+                        </TouchableHighlight>
+                    }
                 />
             </View>
         );
