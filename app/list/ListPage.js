@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Toast from '../toast/ToastModule'
 
 import {Text, StyleSheet, View, FlatList,Image, ActivityIndicator,TouchableHighlight,ToastAndroid} from 'react-native'
 
@@ -70,7 +71,7 @@ export default class ListPage extends Component {
                     renderItem={({item}) =>
                         <TouchableHighlight
                             onPress={() => {
-                                ToastAndroid.show(item.name, ToastAndroid.LONG)
+                                Toast.show(item.name);
                             }
                             }
                         >
